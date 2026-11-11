@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Portfolio de Myguel Wilfried Nzogang, étudiant en Technique informatique au Cégep Rosemont.">
+<title>Myguel Nzogang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box}html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}
+
+:root{
+--bg:#F3F4EE;--bar:#F3F4EE;--grid:#DDE0D6;--ink:#0E1726;--soft:#28344A;--mute:#4A566B;--card:#F3F4EE;--line:#0E1726;
+--accent:#2F5BFF;--on-accent:#FFFFFF;
+--term:#0E1726;--term-bar:#1B2740;--term-fg:#E6ECF7;--term-mute:#9FB0CC;--term-prompt:#7FB2FF;
+--btn:#0E1726;--btn-fg:#F3F4EE;
+--tag:#E8E6DA;--tag-b:#DDE8FF;--tag-bf:#17407F;
+--ok-bg:#D5F5E3;--ok-fg:#0B5132;--ok-dot:#16A34A;
+--c1:#DDE8FF;--c2:#D5F5E3;--c3:#EDE4FF;--c4:#FFF1B8;--c5:#FFE9D6;
+--display:'Bricolage Grotesque',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,Consolas,monospace
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+--bg:#0B101B;--bar:#0B101B;--grid:#182032;--ink:#E8ECF5;--soft:#B3BED2;--mute:#8C99B1;--card:#101827;--line:#5A6C8C;
+--accent:#7FA0FF;--on-accent:#0B101B;
+--term:#060A12;--term-bar:#151E31;--term-fg:#E6ECF7;--term-mute:#8FA1C0;--term-prompt:#7FA0FF;
+--btn:#E8ECF5;--btn-fg:#0B101B;
+--tag:#1B2436;--tag-b:#1C2B52;--tag-bf:#AFC4FF;
+--ok-bg:#12301F;--ok-fg:#7BE0A8;--ok-dot:#34D27B;
+--c1:#1A2850;--c2:#12301F;--c3:#29214A;--c4:#38301A;--c5:#38261A;color-scheme:dark}}
+:root[data-theme="dark"]{
+--bg:#0B101B;--bar:#0B101B;--grid:#182032;--ink:#E8ECF5;--soft:#B3BED2;--mute:#8C99B1;--card:#101827;--line:#5A6C8C;
+--accent:#7FA0FF;--on-accent:#0B101B;
+--term:#060A12;--term-bar:#151E31;--term-fg:#E6ECF7;--term-mute:#8FA1C0;--term-prompt:#7FA0FF;
+--btn:#E8ECF5;--btn-fg:#0B101B;
+--tag:#1B2436;--tag-b:#1C2B52;--tag-bf:#AFC4FF;
+--ok-bg:#12301F;--ok-fg:#7BE0A8;--ok-dot:#34D27B;
+--c1:#1A2850;--c2:#12301F;--c3:#29214A;--c4:#38301A;--c5:#38261A;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{margin:0;background-color:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px;color:var(--ink);font-family:var(--display);font-size:16px;line-height:1.5;min-height:100vh;display:flex;flex-direction:column}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bar)}
+a{color:inherit}
+a:hover{color:var(--accent)}
+:focus-visible{outline:2.5px solid var(--accent);outline-offset:3px;border-radius:4px}
+h1,h2,h3,p,ul{margin:0}
+ul{padding:0;list-style:none}
+
+.gutter{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{width:100%;max-width:1160px;margin:0 auto}
+
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--bar);border-bottom:1.5px solid var(--line)}
+.bar-in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px;padding-block:14px}
+.prompt{font-family:var(--mono);font-size:14px;font-weight:500;min-width:0;overflow-wrap:anywhere;display:flex;flex-wrap:wrap;align-items:baseline;row-gap:2px}
+.prompt .user{color:var(--mute)}
+.prompt .sep{color:var(--mute)}
+.prompt .path{font-weight:700}
+.prompt .dollar{color:var(--accent);font-weight:700;margin:0 8px 0 4px}
+.prompt .typed{color:var(--ink)}
+.cursor{display:inline-block;width:9px;height:1.05em;background:var(--accent);margin-left:2px;transform:translateY(3px);animation:blink 1.05s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.nav{display:flex;flex-wrap:wrap;gap:8px;font-family:var(--mono);font-size:13px}
+.nav a{padding:7px 12px;border:1.5px solid var(--line);border-radius:6px;text-decoration:none;background:var(--bg)}
+.nav a:hover,.langbtn:hover{border-color:var(--accent)}
+.langbtn{padding:7px 12px;border:1.5px solid var(--line);border-radius:6px;background:transparent;color:var(--ink);font:inherit;font-weight:700;cursor:pointer}
+.nav a::first-letter,.row .slug::first-letter{text-transform:uppercase}
+.nav a[aria-current="page"]{background:var(--btn);color:var(--btn-fg);border-color:var(--btn)}
+
+main{flex:1;padding-block:56px 72px}
+.enter{animation:enter .26s ease-out}
+@keyframes enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.h-title{font-weight:800;font-size:clamp(40px,8vw,64px);line-height:1;letter-spacing:-0.04em;text-wrap:balance}
+.lead{font-size:clamp(17px,2.4vw,22px);line-height:1.55;color:var(--soft);max-width:760px}
+.lab{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+
+.badge{align-self:flex-start;display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border-radius:999px;background:var(--ok-bg);font-family:var(--mono);font-size:13px;font-weight:500;color:var(--ok-fg)}
+.badge i{width:10px;height:10px;border-radius:50%;background:var(--ok-dot);display:inline-block}
+
+.hero{display:flex;flex-wrap:wrap;gap:48px;align-items:center}
+.hero-l{flex:1 1 520px;min-width:0;display:flex;flex-direction:column;gap:28px}
+.hero h1{font-weight:800;font-size:clamp(52px,11vw,104px);line-height:.95;letter-spacing:-0.045em}
+.hero h1 span{color:var(--accent)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;font-family:var(--mono);font-size:14px;font-weight:700}
+.btn{display:inline-block;padding:13px 20px;border-radius:8px;background:var(--btn);color:var(--btn-fg);text-decoration:none;border:1.5px solid var(--btn)}
+.btn:hover{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent);background:transparent}
+
+.term{flex:1 1 380px;min-width:0;border:1.5px solid var(--line);border-radius:12px;background:var(--term);box-shadow:10px 10px 0 var(--accent);overflow:hidden}
+.term-top{display:flex;align-items:center;gap:8px;padding:12px 16px;background:var(--term-bar)}
+.term-top i{width:11px;height:11px;border-radius:50%;display:inline-block}
+.term-top span{margin-left:12px;font-family:var(--mono);font-size:12px;color:var(--term-mute)}
+.term-body{padding:22px 24px;font-family:var(--mono);font-size:14px;line-height:1.9;color:var(--term-fg);overflow-wrap:anywhere}
+.term-body .p{color:var(--term-prompt)}
+.term-body .o{color:var(--term-mute)}
+.term-body a{color:var(--term-fg);text-decoration:underline;text-decoration-color:var(--term-prompt);text-underline-offset:4px;margin-right:14px;display:inline-block}
+.term-body a:hover{color:var(--term-prompt)}
+.term-body .caret{display:inline-block;width:9px;height:1.05em;background:var(--term-fg);transform:translateY(3px);animation:blink 1.05s steps(1) infinite}
+
+.head{display:flex;flex-direction:column;gap:14px;margin-bottom:40px}
+.list{display:flex;flex-direction:column;gap:20px}
+.row{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;padding:28px 30px;border:1.5px solid var(--line);border-radius:16px;background:var(--card);text-decoration:none;transition:transform .15s,box-shadow .15s}
+.row:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--accent);color:var(--ink)}
+.row .slug{flex:0 0 200px;font-family:var(--mono);font-size:14px;font-weight:700;color:var(--accent);overflow-wrap:anywhere}
+.row .rm{flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:10px}
+.row h3{font-weight:800;font-size:clamp(26px,4vw,34px);line-height:1.08;letter-spacing:-0.03em}
+.row p{color:var(--soft);font-size:17px;line-height:1.55;max-width:640px}
+.row .go{font-family:var(--mono);font-size:13px;font-weight:700;white-space:nowrap}
+.tags{display:flex;flex-wrap:wrap;gap:8px;font-family:var(--mono);font-size:12px}
+.tag{padding:4px 10px;border-radius:4px;background:var(--tag)}
+.tag.b{background:var(--tag-b);color:var(--tag-bf)}
+
+.crumb{font-family:var(--mono);font-size:13px;font-weight:700;margin-bottom:28px}
+.crumb a{text-decoration:none;padding:7px 12px;border:1.5px solid var(--line);border-radius:6px;display:inline-block;background:var(--bg)}
+.crumb a:hover{border-color:var(--accent)}
+.d-title{font-weight:800;font-size:clamp(38px,7vw,72px);line-height:1;letter-spacing:-0.04em;text-wrap:balance;margin:18px 0 26px}
+.d-links{display:flex;flex-wrap:wrap;gap:12px;font-family:var(--mono);font-size:14px;font-weight:700;margin-bottom:40px}
+.d-body{display:flex;flex-direction:column;gap:18px;max-width:780px}
+.d-body p{font-size:19px;line-height:1.65;color:var(--soft)}
+.sec{margin-top:52px;display:flex;flex-direction:column;gap:18px}
+.feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.feat li{padding:14px 18px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);font-size:16px;line-height:1.5;display:flex;gap:12px}
+.feat li::before{content:">";font-family:var(--mono);font-weight:700;color:var(--accent)}
+.stack{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.pn{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:64px;font-family:var(--mono);font-size:13px;font-weight:700}
+.pn a{padding:12px 16px;border:1.5px solid var(--line);border-radius:8px;text-decoration:none;background:var(--card)}
+.pn a:hover{border-color:var(--accent)}
+
+.sk{display:flex;flex-direction:column;border:1.5px solid var(--line);border-radius:16px;overflow:hidden;min-width:0}
+.sk-h{display:flex;justify-content:space-between;align-items:baseline;padding:16px 22px;background:var(--btn);color:var(--btn-fg);font-family:var(--mono);font-size:14px;font-weight:700}
+.sk-b{display:flex;flex-wrap:wrap;gap:10px;padding:22px}
+.pill{padding:8px 14px;border:1.5px solid var(--line);border-radius:999px;background:var(--bg);font-family:var(--mono);font-size:13px}
+.grid-sk{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+
+.cert{margin-top:28px;padding:26px 30px;border-radius:16px;background:var(--accent);color:var(--on-accent);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px}
+.cert .lab{color:inherit;opacity:.85}
+.cert strong{display:block;font-weight:800;font-size:clamp(20px,3vw,28px);letter-spacing:-0.02em;margin-top:6px}
+.cert a{padding:12px 20px;border-radius:8px;background:var(--bg);color:var(--ink);font-family:var(--mono);font-size:13px;font-weight:700;text-decoration:none}
+.cert a:hover{color:var(--accent)}
+
+.about{display:flex;flex-direction:column;gap:32px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.fact{padding:20px 22px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);display:flex;flex-direction:column;gap:6px}
+.fact b{font-size:20px;font-weight:800;letter-spacing:-0.02em}
+.fact span{color:var(--soft)}
+
+.contact{padding:clamp(28px,6vw,56px) clamp(22px,5vw,44px);border-radius:20px;background:var(--term);color:var(--term-fg);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:40px}
+.contact .l{flex:1 1 400px;min-width:0;display:flex;flex-direction:column;gap:16px}
+.contact h1{font-weight:800;font-size:clamp(44px,8vw,72px);line-height:.98;letter-spacing:-0.045em}
+.contact p{font-size:18px;color:var(--term-mute);max-width:460px}
+.contact .r{flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:12px;font-family:var(--mono);font-size:14px}
+.mail{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:14px 16px;border-radius:8px;background:#F3F4EE;color:#0E1726;font-weight:700}
+.mail code{font:inherit;overflow-wrap:anywhere;user-select:all;flex:1 1 200px;min-width:0}
+.mail button{font:inherit;font-size:12px;padding:6px 12px;border-radius:6px;border:1.5px solid #0E1726;background:transparent;color:#0E1726;cursor:pointer}
+.mail button:hover{background:#0E1726;color:#F3F4EE}
+.contact .r a{display:block;padding:14px 16px;border-radius:8px;border:1.5px solid var(--term-fg);color:var(--term-fg);text-decoration:none}
+.contact .r a:hover{border-color:var(--term-prompt);color:var(--term-prompt)}
+
+.thumb{flex:0 0 230px;height:140px;border:1.5px solid var(--line);border-radius:10px;overflow:hidden;background:var(--tag)}
+.thumb img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.more{margin-top:20px}.more summary{cursor:pointer;font-family:var(--mono);font-size:13px;padding:8px 0;color:var(--mute)}.more .shots{margin-top:14px}
+.shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:20px}
+.shot{margin:0;display:flex;flex-direction:column;gap:10px;min-width:0}
+.shot button{padding:0;border:1.5px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card);cursor:zoom-in;display:block;width:100%}
+.shot button:hover{border-color:var(--accent)}
+.shot img{width:100%;height:auto;display:block}
+.shot figcaption{font-family:var(--mono);font-size:12px;color:var(--mute)}
+.shot.wide{grid-column:1/-1}
+.lb{position:fixed;inset:0;z-index:50;background:rgba(6,10,18,.88);display:flex;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));cursor:zoom-out}
+.lb img{max-width:100%;max-height:100%;border-radius:8px;background:#fff}
+.lb span{position:absolute;top:max(14px,env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));font-family:var(--mono);font-size:13px;color:#E6ECF7;border:1.5px solid #E6ECF7;border-radius:6px;padding:6px 12px}
+
+footer{padding-block:0 40px}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:12px;color:var(--mute)}
+
+@media (max-width:560px){
+.prompt .user,.prompt .sep{display:none}
+main{padding-block:36px 56px}
+.row{padding:22px 20px}
+.row .slug{flex-basis:100%}
+.thumb{flex-basis:100%;height:170px}
+.hero{gap:36px}
+.term{box-shadow:6px 6px 0 var(--accent)}
+.term-body{padding:18px 16px;font-size:13px}
+}
+@media (prefers-reduced-motion:reduce){
+.enter{animation:none}
+.cursor,.term-body .caret{animation:none}
+.row{transition:none}
+}
+</style>
+
+</head>
+<body>
+<header class="bar">
+<div class="gutter"><div class="wrap bar-in">
+<div class="prompt" id="prompt" aria-live="off"></div>
+<nav class="nav" id="nav" aria-label="Navigation">
+<a href="#accueil" data-k="accueil">accueil</a>
+<a href="#projets" data-k="projets">projets</a>
+<a href="#apropos" data-k="apropos">à propos</a>
+<a href="#competences" data-k="competences">compétences</a>
+<a href="#contact" data-k="contact">contact</a>
+<button type="button" id="lang" class="langbtn">EN</button>
+</nav>
+</div></div>
+</header>
+
+<main class="gutter"><div class="wrap enter" id="view"></div></main>
+
+<footer class="gutter"><div class="wrap foot"><div>© Myguel Wilfried Nzogang · Montréal</div><div>exit 0</div></div></footer>
+
+<script>
+const BASE = ['~', 'myguel'];
+const GH = 'https://github.com/kamtewilfried-commits';
+const MAIL = 'kamtewilfried@gmail.com';
+
+const PROJECTS = [
+{
+slug: 'crm-manara',
+title: `CRM Manara`,
+short: `Plateforme de gestion des inscriptions, des plannings et des notifications d'un centre communautaire, avec un portail pour les parents.`,
+tags: ['web', 'projet de session', 'équipe'],
+date: 'hiver 2026',
+paras: [
+`Projet de session réalisé en équipe pour le Centre communautaire Manara : un CRM pour gérer les inscriptions aux activités, les plannings et les notifications, avec un portail pour les parents. Construit d'abord en Spring MVC, puis refait en API REST Spring Boot avec un frontend Angular, en méthodologie Scrum.`
+],
+feats: [
+`Trois espaces selon le rôle : administrateur, animateur et parent`,
+`Connexion avec Google et vérification par code OTP`,
+`Inscription des enfants aux activités et paiement en ligne avec Stripe`,
+`Notifications et courriels transactionnels`,
+`Messagerie avec appel vidéo`,
+`Chatbot relié à la base de données`,
+`Tableau de bord administrateur avec statistiques et mode sombre`
+],
+stack: [
+['/backend', ['Java', 'Spring Boot', 'Spring Security', 'API REST', 'JWT', 'OAuth 2.0', 'MySQL']],
+['/frontend', ['Angular', 'TypeScript', 'HTML5', 'CSS3']],
+['/outils', ['GitHub', 'GitLab', 'Scrum', 'Stripe', 'Twilio', 'OpenAI', 'Stream']]
+],
+shots: [
+['img/manara-connexion.webp', `Maquette Figma de la page de connexion, ordinateur et mobile`, 'Maquette Figma : page de connexion'],
+['img/manara-calendrier.webp', `Maquette Figma de la page calendrier, ordinateur et mobile`, 'Maquette Figma : page calendrier']
+],
+links: [['code sur GitHub ↗', GH + '/Manara']]
+},
+{
+slug: 'hoops-shoes',
+title: `Hoops&amp;Shoes`,
+short: `Boutique en ligne de chaussures de basketball : catalogue, compte utilisateur, panier et commande.`,
+tags: ['web', 'e-commerce', 'équipe'],
+date: 'avril 2025',
+paras: [
+`Site e-commerce conçu en équipe de trois dans le cours Applications Web 1, pour une entreprise qui vend uniquement des chaussures de basketball. PHP et MySQL côté serveur, panier interactif en JavaScript, avec les maquettes Figma et l'analyse du projet.`
+],
+feats: [
+`Catalogue par catégorie avec tri des articles`,
+`Fiche détaillée de chaque produit`,
+`Création de compte et connexion, mots de passe hachés`,
+`Panier interactif et validation de la commande`,
+`Maquettes Figma pour ordinateur et téléphone`,
+`Analyse : cas d'utilisation et diagramme de classes`
+],
+stack: [
+['/backend', ['PHP', 'MySQL']],
+['/frontend', ['JavaScript', 'HTML5', 'CSS3']],
+['/conception', ['Figma', `Cas d'utilisation`, 'Diagramme de classes']]
+],
+shots: [
+['img/hoops-maquette-desktop-1.webp', `Maquette Figma ordinateur : accueil, connexion, fiche article et panier`, 'Maquette Figma : accueil, connexion, article, panier'],
+['img/hoops-maquette-mobile.webp', `Maquettes Figma pour téléphone`, 'Maquettes Figma pour téléphone', 'wide']
+],
+more: [
+['img/hoops-maquette-desktop-2.webp', `Maquette Figma ordinateur : inscription, erreur de taille, panier vide et confirmation`, 'Maquette Figma : inscription, panier vide, confirmation'],
+['img/hoops-cas-utilisation.webp', `Diagramme de cas d'utilisation du client`, `Cas d'utilisation`],
+['img/hoops-diagramme-classes.webp', `Diagramme de classes : utilisateur, panier, produit, commande, facture`, 'Diagramme de classes']
+],
+links: [['code sur GitHub ↗', GH + '/Hoops-shoes']]
+},
+{
+slug: 'application-de-notes',
+title: `Application de notes`,
+short: `Application Android de prise de notes avec catégories de couleur, recherche et tri.`,
+tags: ['mobile · Android', 'projet scolaire', 'individuel'],
+date: 'hiver 2026',
+paras: [
+`Application Android native de prise de notes personnelles, développée en Kotlin selon l'architecture MVP dans le cadre d'un projet scolaire individuel.`
+],
+feats: [
+`Création, modification et suppression de notes, avec confirmation`,
+`Quatre catégories avec indicateur de couleur : général, travail, idée, important`,
+`Dates de création et de dernière modification`,
+`Recherche par mots-clés dans le titre et le contenu`,
+`Tri par titre, date de création ou date de modification`,
+`Tests unitaires et tests bout-en-bout avec Espresso`
+],
+stack: [
+['/mobile', ['Kotlin', 'Android', 'MVP', 'RecyclerView']],
+['/tests', ['JUnit', 'Espresso']]
+],
+shots: [
+['img/notes-maquette.webp', `Maquette Figma de l'application : écran d'une note et liste des notes`, 'Maquette Figma : une note et la liste des notes']
+],
+links: [['code sur GitHub ↗', GH + '/Application_Prise_note']]
+},
+{
+slug: 'autodrive',
+title: `AutoDrive`,
+short: `Application Android de location de voitures avec profils client et administrateur.`,
+tags: ['mobile · Android', 'projet scolaire'],
+date: '',
+paras: [
+`Application Android native de location de voitures, développée en Kotlin selon l'architecture MVP, avec un profil client et un profil administrateur. Les données sont stockées localement avec Room.`
+],
+feats: [
+`Connexion avec deux profils : client et administrateur`,
+`Consultation des voitures et fiche détaillée`,
+`Réservation et suivi de « mes réservations »`,
+`Profil utilisateur et évaluations des voitures`,
+`Ajout de voitures par l'administrateur`
+],
+stack: [
+['/mobile', ['Kotlin', 'Android', 'MVP', 'Room']],
+['/tests', ['Tests unitaires', `Tests d'instrumentation`, 'Tests E2E']]
+],
+links: [['code sur GitHub ↗', GH + '/voitureallemand']]
+},
+{
+slug: 'guichet-automatique',
+title: `Simulateur de guichet automatique`,
+short: `Simulateur de guichet automatique orienté objet : clients, comptes, transactions et mode administrateur.`,
+tags: ['Java · POO', 'projet scolaire'],
+date: '',
+paras: [
+`Prototype de guichet automatique développé en Java avec une approche orientée objet : clients, comptes, transactions et mode administrateur.`
+],
+feats: [
+`Authentification par code client et NIP, blocage après trois essais`,
+`Quatre types de comptes, dont une marge de crédit`,
+`Dépôt, retrait, transfert et paiement de facture avec frais de 1,25 $`,
+`Retraits en multiples de 10 $, limite de 1 000 $ par transaction`,
+`Historique de chaque transaction`,
+`Mode administrateur : clients, comptes, intérêts, approvisionnement`
+],
+stack: [
+['/langage', ['Java', 'Programmation orientée objet', 'Classe de test']]
+],
+links: [['code sur GitHub ↗', GH + '/Guichet_Automatique']]
+},
+{
+slug: 'nano-surgeon-3d',
+title: `Nano-Surgeon 3D : Protocole Nexus`,
+short: `Jeu d'action-aventure réalisé avec Unity, d'une phase 2D jusqu'à un monde ouvert 3D.`,
+tags: ['jeu vidéo · Unity', 'projet final', 'individuel'],
+date: 'hiver 2026',
+paras: [
+`Jeu d'action-aventure solo réalisé avec Unity et C# comme projet final. Une phase 2D où le Dr Elias, un scientifique miniaturisé, élimine des virus, puis un portail vers un monde ouvert 3D post-apocalyptique, jusqu'au boss final. Publié sur itch.io.`
+],
+feats: [
+`Menu principal avec saisie du surnom du joueur`,
+`Phase 2D : éliminer les ennemis et collecter les ressources`,
+`Portail vers la phase 3D avec effet de fondu`,
+`Monde ouvert 3D : zombies, ours mutants et boss Nexus Titan`,
+`Gestion de la vie avec des kits médicaux, score, écrans de victoire et de défaite`,
+`Exécutable Windows publié sur itch.io`
+],
+stack: [
+['/moteur', ['Unity', 'C#']],
+['/gameplay', ['IA ennemie (NavMesh)', 'Jeu 2D', 'Jeu 3D']]
+],
+shots: [
+['img/nano-menu.webp', `Menu principal de Nano-Surgeon 3D`, 'Menu principal'],
+['img/nano-2d.webp', `Phase 2D : le Dr Elias collecte des cristaux`, 'Phase 2D : collecte de ressources'],
+['img/nano-3d-ours.webp', `Phase 3D : combat contre un ours mutant`, 'Phase 3D : un ours mutant'],
+['img/nano-3d-exploration.webp', `Phase 3D : exploration du monde ouvert`, 'Phase 3D : exploration'],
+['img/nano-editeur.webp', `Scène 3D dans l'éditeur Unity`, 'Scène dans l\'éditeur Unity']
+],
+links: [['jouer sur itch.io ↗', 'https://nzogang-wilfried.itch.io/nano-surgeon-3d-protocole-nexus']]
+}
+];
+
+
+const EN = {
+'crm-manara': {
+title: `CRM Manara`,
+short: `Platform to manage registrations, schedules and notifications for a community centre, with a portal for parents.`,
+paras: [`Term project built in a team for the Manara community centre: a CRM to manage activity registrations, schedules and notifications, with a portal for parents. First built with Spring MVC, then rebuilt as a Spring Boot REST API with an Angular frontend, using Scrum.`],
+feats: [`Three roles: administrator, instructor and parent`,`Google sign-in and OTP code verification`,`Children registration to activities and online payment with Stripe`,`Notifications and transactional emails`,`Messaging with video calls`,`Chatbot connected to the database`,`Administrator dashboard with statistics and dark mode`],
+shots: [[`Figma mockup of the login page, desktop and mobile`,`Figma mockup: login page`],[`Figma mockup of the calendar page, desktop and mobile`,`Figma mockup: calendar page`]],
+links: [`code on GitHub ↗`]
+},
+'hoops-shoes': {
+title: `Hoops&amp;Shoes`,
+short: `Online basketball shoe store: catalogue, user account, cart and checkout.`,
+paras: [`E-commerce website built in a team of three for the Web Applications 1 course, for a company that sells only basketball shoes. PHP and MySQL on the server, an interactive cart in JavaScript, with Figma mockups and project analysis.`],
+feats: [`Catalogue by category with sorting`,`Detailed page for each product`,`Account creation and login, hashed passwords`,`Interactive cart and order validation`,`Figma mockups for desktop and mobile`,`Analysis: use cases and class diagram`],
+shots: [[`Desktop Figma mockup: home, login, product page and cart`,`Figma mockup: home, login, product, cart`],[`Figma mockups for mobile`,`Figma mockups for mobile`]],
+more: [[`Desktop Figma mockup: sign-up, size error, empty cart and confirmation`,`Figma mockup: sign-up, empty cart, confirmation`],[`Customer use case diagram`,`Use cases`],[`Class diagram: user, cart, product, order, invoice`,`Class diagram`]],
+links: [`code on GitHub ↗`]
+},
+'application-de-notes': {
+title: `Notes app`,
+short: `Android note-taking app with colour categories, search and sorting.`,
+paras: [`Native Android app for personal notes, written in Kotlin with the MVP architecture as an individual school project.`],
+feats: [`Create, edit and delete notes, with confirmation`,`Four colour-coded categories: general, work, idea, important`,`Creation and last-modified dates`,`Keyword search in title and content`,`Sorting by title, creation date or modification date`,`Unit tests and end-to-end tests with Espresso`],
+shots: [[`Figma mockup of the app: a note and the notes list`,`Figma mockup: a note and the notes list`]],
+links: [`code on GitHub ↗`]
+},
+'autodrive': {
+title: `AutoDrive`,
+short: `Android car rental app with customer and administrator profiles.`,
+paras: [`Native Android car rental app written in Kotlin with the MVP architecture, with a customer profile and an administrator profile. Data is stored locally with Room.`],
+feats: [`Login with two profiles: customer and administrator`,`Browse cars and detail page`,`Booking and “my reservations” tracking`,`User profile and car ratings`,`Cars added by the administrator`],
+links: [`code on GitHub ↗`]
+},
+'guichet-automatique': {
+title: `ATM simulator`,
+short: `Object-oriented ATM simulator: customers, accounts, transactions and administrator mode.`,
+paras: [`ATM prototype written in Java with an object-oriented approach: customers, accounts, transactions and administrator mode.`],
+feats: [`Login with customer code and PIN, locked after three attempts`,`Four account types, including a line of credit`,`Deposit, withdrawal, transfer and bill payment with a $1.25 fee`,`Withdrawals in multiples of $10, $1,000 limit per transaction`,`History of every transaction`,`Administrator mode: customers, accounts, interest, cash loading`],
+links: [`code on GitHub ↗`]
+},
+'nano-surgeon-3d': {
+title: `Nano-Surgeon 3D: Nexus Protocol`,
+short: `Action-adventure game made with Unity, from a 2D phase to a 3D open world.`,
+paras: [`Solo action-adventure game made with Unity and C# as a final project. A 2D phase where Dr Elias, a miniaturised scientist, eliminates viruses, then a portal to a post-apocalyptic 3D open world, up to the final boss. Published on itch.io.`],
+feats: [`Main menu with player nickname input`,`2D phase: eliminate enemies and collect resources`,`Portal to the 3D phase with a fade effect`,`3D open world: zombies, mutant bears and the Nexus Titan boss`,`Health management with medical kits, score, victory and defeat screens`,`Windows executable published on itch.io`],
+shots: [[`Main menu of Nano-Surgeon 3D`,`Main menu`],[`2D phase: Dr Elias collects crystals`,`2D phase: collecting resources`],[`3D phase: fight against a mutant bear`,`3D phase: a mutant bear`],[`3D phase: exploring the open world`,`3D phase: exploration`],[`3D scene in the Unity editor`,`Scene in the Unity editor`]],
+links: [`play on itch.io ↗`]
+}
+};
+
+const UI = {
+fr: {
+'nav.accueil':'Accueil','nav.projets':'Projets','nav.apropos':'À propos','nav.competences':'Compétences','nav.contact':'Contact',
+'badge':'disponible · stage / temps partiel',
+'lead':`Étudiant en Technique informatique au Cégep Rosemont (fin 2027). En équipe, j'ai construit un CRM complet avec Spring Boot et Angular et une boutique en ligne en PHP. Seul, des applications Android en Kotlin et un jeu Unity publié sur itch.io.`,
+'cv':'cv.pdf','formation':'Technique informatique · Cégep Rosemont · 2027',
+'featured':'projets en vedette','open':'ouvrir →',
+'folders':'dossiers','projTitle':'Projets','projLead':'Clique sur un projet pour lire sa description complète et ouvrir son code.',
+'preview':'aperçu','more':'conception et maquettes','features':'fonctionnalités',
+'aboutTitle':'À propos','aboutLead':`Je suis étudiant en technique informatique au Cégep Rosemont (fin prévue en 2027) et je m'intéresse autant au développement qu'à l'expérience utilisateur, avec une certification Google en UX Design.`,
+'f1':'formation','f1b':'Technique informatique','f1c':'Cégep Rosemont · fin prévue en 2027',
+'f2':'ville','f2c':'Stage ou temps partiel','f3':'orientation','f3b':'Développement + UX','f3c':'Applications web, mobiles et jeux',
+'cert':'Certification · fév. 2026','verify':'vérifier ↗',
+'skillsTitle':'Compétences',
+'contactH':'On code<br>ensemble ?','contactP':'Stage ou temps partiel en développement web ou support TI, à Montréal.',
+'copy':'copier','copied':'copié','selected':'sélectionné','cvlink':'cv (pdf) ↗','close':'fermer ✕'
+},
+en: {
+'nav.accueil':'Home','nav.projets':'Projects','nav.apropos':'About','nav.competences':'Skills','nav.contact':'Contact',
+'badge':'available · internship / part-time',
+'lead':`Computer Technology student at Cégep Rosemont (graduating 2027). In a team, I built a full CRM with Spring Boot and Angular and an online store in PHP. On my own, Android apps in Kotlin and a Unity game published on itch.io.`,
+'cv':'cv.pdf (FR)','formation':'Computer Technology · Cégep Rosemont · 2027',
+'featured':'featured projects','open':'open →',
+'folders':'folders','projTitle':'Projects','projLead':'Click a project to read its full description and open its code.',
+'preview':'preview','more':'design and mockups','features':'features',
+'aboutTitle':'About','aboutLead':`I am a Computer Technology student at Cégep Rosemont (graduating in 2027), interested in both development and user experience, with a Google certification in UX Design.`,
+'f1':'education','f1b':'Computer Technology','f1c':'Cégep Rosemont · graduating in 2027',
+'f2':'city','f2c':'Internship or part-time','f3':'focus','f3b':'Development + UX','f3c':'Web, mobile and game applications',
+'cert':'Certification · Feb 2026','verify':'verify ↗',
+'skillsTitle':'Skills',
+'contactH':'Let\'s build<br>something together','contactP':'Internship or part-time role in web development or IT support, in Montréal.',
+'copy':'copy','copied':'copied','selected':'selected','cvlink':'cv (pdf, French) ↗','close':'close ✕'
+}
+};
+const TR = {
+'web':'web','projet de session':'term project','équipe':'team','hiver 2026':'winter 2026','avril 2025':'April 2025','mobile · Android':'mobile · Android','projet scolaire':'school project','individuel':'individual','e-commerce':'e-commerce','Java · POO':'Java · OOP','jeu vidéo · Unity':'video game · Unity','projet final':'final project',
+'/backend':'/backend','/frontend':'/frontend','/outils':'/tools','/conception':'/design','/mobile':'/mobile','/tests':'/tests','/langage':'/language','/moteur':'/engine','/gameplay':'/gameplay','/jeu':'/game',
+"Cas d'utilisation":'Use cases','Diagramme de classes':'Class diagram','Tests unitaires':'Unit tests',"Tests d'instrumentation":'Instrumentation tests','Tests E2E':'E2E tests','Programmation orientée objet':'Object-oriented programming','Classe de test':'Test class','IA ennemie (NavMesh)':'Enemy AI (NavMesh)','IA ennemie':'Enemy AI','Jeu 2D':'2D game','Jeu 3D':'3D game'
+};
+let LANG = 'fr';
+try { const sv = localStorage.getItem('lang'); LANG = sv === 'en' || sv === 'fr' ? sv : ((navigator.language || 'fr').slice(0, 2) === 'en' ? 'en' : 'fr'); } catch (e) { LANG = (navigator.language || 'fr').slice(0, 2) === 'en' ? 'en' : 'fr'; }
+function t(k) { return UI[LANG][k]; }
+function tr(x) { return LANG === 'en' && TR[x] ? TR[x] : x; }
+function L(p) {
+  if (LANG === 'fr') return p;
+  const e = EN[p.slug];
+  const q = Object.assign({}, p, { title: e.title, short: e.short, paras: e.paras, feats: e.feats });
+  q.tags = p.tags.map(tr);
+  q.date = tr(p.date);
+  q.stack = p.stack.map(x => [tr(x[0]), x[1].map(tr)]);
+  if (p.shots) q.shots = p.shots.map((x, i) => [x[0], e.shots[i][0], e.shots[i][1], x[3]]);
+  if (p.more) q.more = p.more.map((x, i) => [x[0], e.more[i][0], e.more[i][1], x[3]]);
+  q.links = p.links.map((l, i) => [e.links[i], l[1]]);
+  return q;
+}
+function setLang(l) {
+  LANG = l;
+  try { localStorage.setItem('lang', l); } catch (e) {}
+  applyChrome();
+  show(parse());
+}
+function applyChrome() {
+  document.documentElement.lang = LANG;
+  navEl.querySelectorAll('a').forEach(a => { a.textContent = t('nav.' + a.getAttribute('data-k')); });
+  const b = document.getElementById('lang');
+  b.textContent = LANG === 'fr' ? 'EN' : 'FR';
+  b.setAttribute('aria-label', LANG === 'fr' ? 'Switch to English' : 'Passer en français');
+}
+
+const SKILLS = [
+['/backend', ['Java', 'Spring Boot', 'Spring MVC', 'API REST', 'PHP', 'Python', 'MySQL', 'SQL']],
+['/frontend', ['Angular', 'HTML5', 'CSS3', 'Bootstrap', 'JavaScript', 'jQuery', 'Ajax', 'UX / UI', 'Figma']],
+['/mobile', ['Kotlin', 'Android', 'MVP', 'Room', 'JUnit', 'Espresso']],
+['/jeu', ['Unity', 'C#', 'IA ennemie', 'Jeu 2D', 'Jeu 3D']],
+['/outils', ['GitLab', 'GitHub', 'Scrum', 'JWT', 'OAuth 2.0', 'Linux', 'Windows']]
+];
+
+const promptEl = document.getElementById('prompt');
+const viewEl = document.getElementById('view');
+const navEl = document.getElementById('nav');
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+let curSegs = BASE.slice();
+let tok = 0;
+
+function parse() {
+  const h = (location.hash || '').replace(/^#/, '');
+  if (h === 'projets') return { key: 'projets', nav: 'projets', segs: BASE.concat('projets') };
+  if (h.indexOf('projet-') === 0) {
+    const slug = h.slice(7);
+    const i = PROJECTS.findIndex(p => p.slug === slug);
+    if (i >= 0) return { key: 'projet', nav: 'projets', i: i, segs: BASE.concat('projets', slug) };
+  }
+  if (h === 'apropos') return { key: 'apropos', nav: 'apropos', segs: BASE.concat('apropos') };
+  if (h === 'competences') return { key: 'competences', nav: 'competences', segs: BASE.concat('competences') };
+  if (h === 'contact') return { key: 'contact', nav: 'contact', segs: BASE.concat('contact') };
+  return { key: 'accueil', nav: 'accueil', segs: BASE.slice() };
+}
+
+function cmdFor(from, to) {
+  let c = 0;
+  while (c < from.length && c < to.length && from[c] === to[c]) c++;
+  if (c === from.length && c === to.length) return '';
+  if (c < 2) return 'cd ' + to.join('/');
+  const ups = from.length - c;
+  const rest = to.slice(c);
+  if (ups === 0) return 'cd ' + rest.join('/');
+  const parts = [];
+  for (let k = 0; k < ups; k++) parts.push('..');
+  return 'cd ' + parts.concat(rest).join('/');
+}
+
+function drawPrompt(segs, typed) {
+  promptEl.innerHTML =
+    '<span class="user">myguel@portfolio</span><span class="sep">:</span>' +
+    '<span class="path">' + segs.join('/') + '</span>' +
+    '<span class="dollar">$</span><span class="typed">' + typed + '</span><span class="cursor"></span>';
+}
+
+function tagsHtml(p) {
+  let h = '';
+  p.tags.forEach((t, i) => { h += '<span class="tag' + (i === 0 ? ' b' : '') + '">' + t + '</span>'; });
+  if (p.date) h += '<span class="tag">' + p.date + '</span>';
+  return h;
+}
+
+function pillsHtml(items) {
+  return items.map(t => '<span class="pill">' + t + '</span>').join('');
+}
+
+function skillCard(label, items, n) {
+  return '<div class="sk" style="background:var(--c' + n + ')"><div class="sk-h"><span>' + label + '</span></div><div class="sk-b">' + pillsHtml(items) + '</div></div>';
+}
+
+function viewAccueil() {
+  return '<section class="hero"><div class="hero-l">' +
+    '<div class="badge"><i></i>' + t('badge') + '</div>' +
+    '<h1>Myguel<br>Nzogang<span>.</span></h1>' +
+    '<p class="lead">' + t('lead') + '</p>' +
+    '<div class="cta"><a class="btn" href="#projets">ls projets/</a><a class="btn ghost" href="#contact">cd contact</a><a class="btn ghost" href="cv.pdf" target="_blank" rel="noopener">' + t('cv') + ' ↗</a></div>' +
+    '</div>' +
+    '<div class="term"><div class="term-top"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i><span>whoami.sh</span></div>' +
+    '<div class="term-body">' +
+    '<div><span class="p">$</span> whoami</div><div class="o">myguel-wilfried-nzogang</div>' +
+    '<div><span class="p">$</span> cat formation.txt</div><div class="o">' + t('formation') + '</div>' +
+    '<div><span class="p">$</span> cat ville.txt</div><div class="o">Montréal, Québec</div>' +
+    '<div><span class="p">$</span> ls</div>' +
+    '<div><a href="#projets">projets/</a><a href="#apropos">apropos/</a><a href="#competences">competences/</a><a href="#contact">contact/</a></div>' +
+    '<div><span class="p">$</span> <span class="caret"></span></div>' +
+    '</div></div></section>' + featuredHome();
+}
+
+function featuredHome() {
+  const rows = ['crm-manara', 'hoops-shoes', 'nano-surgeon-3d'].map(k => L(PROJECTS.find(p => p.slug === k))).map(p =>
+    '<a class="row" href="#projet-' + p.slug + '"><div class="slug">' + p.slug + '/</div>' +
+    '<div class="rm"><h3>' + p.title + '</h3><p>' + p.short + '</p><div class="tags">' + tagsHtml(p) + '</div></div>' +
+    '<div class="go">' + t('open') + '</div></a>').join('');
+  return '<section style="margin-top:56px"><div class="lab" style="margin-bottom:16px">' + t('featured') + '</div><div class="list">' + rows + '</div>' +
+    '<div class="cta" style="margin-top:20px"><a class="btn ghost" href="#projets">ls projets/ →</a></div></section>';
+}
+
+function viewProjets() {
+  let rows = PROJECTS.map(L).map(p =>
+    '<a class="row" href="#projet-' + p.slug + '"><div class="slug">' + p.slug + '/</div>' +
+    '<div class="rm"><h3>' + p.title + '</h3><p>' + p.short + '</p><div class="tags">' + tagsHtml(p) + '</div></div>' +
+    (p.shots && !p.nothumb ? '<div class="thumb"><img src="' + p.shots[0][0] + '" alt="" loading="lazy"></div>' : '') +
+    '<div class="go">' + t('open') + '</div></a>').join('');
+  return '<div class="head"><div class="lab">' + PROJECTS.length + ' ' + t('folders') + '</div><h1 class="h-title">' + t('projTitle') + '</h1>' +
+    '<p class="lead">' + t('projLead') + '</p></div>' +
+    '<div class="list">' + rows + '</div>';
+}
+
+function viewProjet(i) {
+  const p = L(PROJECTS[i]);
+  const prev = PROJECTS[i - 1];
+  const next = PROJECTS[i + 1];
+  const links = p.links.map((l, k) => '<a class="btn' + (k ? ' ghost' : '') + '" href="' + l[1] + '" target="_blank" rel="noopener">' + l[0] + '</a>').join('');
+  const paras = p.paras.map(t => '<p>' + t + '</p>').join('');
+  const feats = p.feats.map(t => '<li>' + t + '</li>').join('');
+  const stack = p.stack.map((s, k) => skillCard(s[0], s[1], (k % 5) + 1)).join('');
+  const shots = p.shots ? '<div class="sec"><div class="lab">' + t('preview') + '</div><div class="shots">' +
+    p.shots.map(s => '<figure class="shot' + (s[3] ? ' wide' : '') + '"><button type="button" data-zoom="' + s[0] + '" data-alt="' + s[1] + '"><img src="' + s[0] + '" alt="' + s[1] + '" loading="lazy"></button><figcaption>' + s[2] + '</figcaption></figure>').join('') +
+    '</div></div>' : '';
+  const more = p.more ? '<details class="more"><summary>' + t('more') + ' (' + p.more.length + ')</summary><div class="shots">' + p.more.map(s => '<figure class="shot' + (s[3] ? ' wide' : '') + '"><button type="button" data-zoom="' + s[0] + '" data-alt="' + s[1] + '"><img src="' + s[0] + '" alt="' + s[1] + '" loading="lazy"></button><figcaption>' + s[2] + '</figcaption></figure>').join('') + '</div></details>' : '';
+  return '<div class="crumb"><a href="#projets">← cd ..</a></div>' +
+    '<div class="tags">' + tagsHtml(p) + '</div>' +
+    '<h1 class="d-title">' + p.title + '</h1>' +
+    '<div class="d-links">' + links + '</div>' +
+    '<div class="d-body">' + paras + '</div>' + shots + more +
+    '<div class="sec"><div class="lab">' + t('features') + '</div><ul class="feat">' + feats + '</ul></div>' +
+    '<div class="sec"><div class="lab">stack</div><div class="stack">' + stack + '</div></div>' +
+    '<nav class="pn" aria-label="Autres projets">' +
+    (prev ? '<a href="#projet-' + prev.slug + '">← cd ../' + prev.slug + '</a>' : '<span></span>') +
+    (next ? '<a href="#projet-' + next.slug + '">cd ../' + next.slug + ' →</a>' : '<span></span>') +
+    '</nav>';
+}
+
+function viewApropos() {
+  return '<div class="about"><div class="head" style="margin-bottom:0"><div class="lab">apropos.txt</div><h1 class="h-title">' + t('aboutTitle') + '</h1></div>' +
+    '<p class="lead">' + t('aboutLead') + '</p>' +
+    '<div class="facts">' +
+    '<div class="fact"><span class="lab">' + t('f1') + '</span><b>' + t('f1b') + '</b><span>' + t('f1c') + '</span></div>' +
+    '<div class="fact"><span class="lab">' + t('f2') + '</span><b>Montréal, Québec</b><span>' + t('f2c') + '</span></div>' +
+    '<div class="fact"><span class="lab">' + t('f3') + '</span><b>' + t('f3b') + '</b><span>' + t('f3c') + '</span></div>' +
+    '</div>' +
+    '<div class="cert"><div><div class="lab">' + t('cert') + '</div><strong>Foundations of UX Design — Google</strong></div>' +
+    '<a href="https://coursera.org/verify/J5FGGA8F1THA" target="_blank" rel="noopener">' + t('verify') + '</a></div></div>';
+}
+
+function viewCompetences() {
+  const cards = SKILLS.map((s, k) => skillCard(tr(s[0]), s[1].map(tr), k + 1)).join('');
+  return '<div class="head"><div class="lab">ls competences/</div><h1 class="h-title">' + t('skillsTitle') + '</h1></div><div class="grid-sk">' + cards + '</div>';
+}
+
+function viewContact() {
+  return '<div class="contact"><div class="l"><h1>' + t('contactH') + '</h1><p>' + t('contactP') + '</p></div>' +
+    '<div class="r">' +
+    '<div class="mail"><code>' + MAIL + '</code><button type="button" data-copy="' + MAIL + '" id="copybtn">' + t('copy') + '</button></div>' +
+    '<a href="https://linkedin.com/in/myguel-wilfried-nzogang-3527a5280/" target="_blank" rel="noopener">linkedin ↗</a>' +
+    '<a href="' + GH + '" target="_blank" rel="noopener">github ↗</a>' +
+    '<a href="cv.pdf" target="_blank" rel="noopener">' + t('cvlink') + '</a>' +
+    '</div></div>';
+}
+
+function show(r) {
+  curSegs = r.segs;
+  drawPrompt(curSegs, '');
+  let html;
+  if (r.key === 'projets') html = viewProjets();
+  else if (r.key === 'projet') html = viewProjet(r.i);
+  else if (r.key === 'apropos') html = viewApropos();
+  else if (r.key === 'competences') html = viewCompetences();
+  else if (r.key === 'contact') html = viewContact();
+  else html = viewAccueil();
+  viewEl.classList.remove('enter');
+  viewEl.innerHTML = html;
+  void viewEl.offsetWidth;
+  viewEl.classList.add('enter');
+  navEl.querySelectorAll('a').forEach(a => {
+    if (a.getAttribute('data-k') === r.nav) a.setAttribute('aria-current', 'page');
+    else a.removeAttribute('aria-current');
+  });
+  window.scrollTo(0, 0);
+}
+
+function go(animate) {
+  const r = parse();
+  const my = ++tok;
+  const cmd = cmdFor(curSegs, r.segs);
+  if (!animate || reduce || !cmd) { show(r); return; }
+  let n = 0;
+  const step = function () {
+    if (my !== tok) return;
+    n++;
+    drawPrompt(curSegs, cmd.slice(0, n));
+    if (n < cmd.length) setTimeout(step, 22);
+    else setTimeout(function () { if (my === tok) show(r); }, 170);
+  };
+  step();
+}
+
+function closeLb() {
+  const lb = document.getElementById('lb');
+  if (lb) lb.remove();
+}
+
+viewEl.addEventListener('click', function (e) {
+  const z = e.target.closest('[data-zoom]');
+  if (z) {
+    closeLb();
+    const lb = document.createElement('div');
+    lb.className = 'lb';
+    lb.id = 'lb';
+    lb.innerHTML = '<span>' + t('close') + '</span><img src="' + z.getAttribute('data-zoom') + '" alt="' + z.getAttribute('data-alt') + '">';
+    lb.addEventListener('click', closeLb);
+    document.body.appendChild(lb);
+    return;
+  }
+  const b = e.target.closest('[data-copy]');
+  if (!b) return;
+  const txt = b.getAttribute('data-copy');
+  const done = function () { b.textContent = t('copied'); setTimeout(function () { b.textContent = t('copy'); }, 1400); };
+  const fallback = function () {
+    const code = viewEl.querySelector('.mail code');
+    if (code) {
+      const range = document.createRange();
+      range.selectNodeContents(code);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+    b.textContent = t('selected');
+  };
+  try {
+    navigator.clipboard.writeText(txt).then(done, fallback);
+  } catch (err) {
+    fallback();
+  }
+});
+
+document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLb(); });
+window.addEventListener('hashchange', function () { closeLb(); go(true); });
+document.getElementById('lang').addEventListener('click', function () { setLang(LANG === 'fr' ? 'en' : 'fr'); });
+applyChrome();
+go(false);
+</script>
+
+</body>
+</html>
